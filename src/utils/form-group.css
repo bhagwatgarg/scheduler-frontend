@@ -1,0 +1,15 @@
+.error{
+  margin-top: 0px;
+  text-align: left;
+  color: red;
+  padding-left: 15px;
+}
+.form-group{
+  margin-bottom: 0px;
+  margin-top: 1vw;
+}
+
+.label{
+  padding-left: 15px;
+  text-align: left;
+}

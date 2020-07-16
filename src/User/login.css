@@ -1,0 +1,126 @@
+.full-extent{
+  min-height: 100vh;
+  background-position: left;
+  background-size: cover;
+  background-blend-mode: multiply;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.full-extent h1{
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.signup-header{
+  background-image: url('../assets/signup-main-back.jpg');
+  background-color:lemonchiffon;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.signup-features{
+  background-image: url('../assets/singup-features.jpg');
+  background-color: lightgray;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.signup-header h1{
+  text-align: right;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.signup-screen h6{
+  font-size: 2rem;
+}
+
+.signup-features-content{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* justify-items: stretch;  */
+  align-items: center ;
+  flex-wrap: wrap;
+}
+
+.feature-item{
+  text-align: center;
+  width: 30vw;
+  min-width: 300px;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: start;
+  background-color: lightgoldenrodyellow;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+.feature-item h1{
+  font-size: 2rem;
+  flex-grow: 1;
+  padding-top: 20%;
+  font-weight: normal;
+}
+
+.feature-icon{
+  width: 20vw;
+  height: 20vw;
+  min-height: 250px;
+  min-width: 250px;
+  background-color: lightgoldenrodyellow;
+  border-radius: 50%;
+  border: 3px solid lightcoral;
+  background-position: center;
+  background-size: cover;
+}
+
+.feature-user-type .feature-icon{
+  background-image: url('../assets/user-types.png');
+}
+
+.feature-events .feature-icon{
+  background-image: url('../assets/follow\ -calendar.webp');
+}
+
+.feature-notify .feature-icon{
+  background-image: url('../assets/notification.png');
+}
+
+.feature-notify{
+  position: relative;
+}
+
+.feature-badge{
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  background-color: red;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+
+.feature-badge h1{
+  color: inherit;
+}
+
+@media(max-width: 400px){
+  .signup-header h1{
+    font-size: 3rem;
+  }
+  .full-extent h1{
+    font-size: 3rem;
+  }
+}

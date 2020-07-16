@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  background-color: darkslategray !important;
+}
+
+.fc-prev-button span{
+  font-size: large;
+  
+}
+.fc-next-button span {
+  font-size: larger;
+}
+button:focus{
+  outline: none !important;
+  box-shadow: none  !important;
+}
+input:focus{
+  outline: none  !important;
+  box-shadow: none  !important;
+}

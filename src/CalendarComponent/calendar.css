@@ -1,0 +1,9 @@
+.demo-app-calendar{
+  min-width: 700px;
+  overflow-x: scroll;
+}
+
+.calendar{
+  max-width: 1000px;
+  max-height: 700px;
+}

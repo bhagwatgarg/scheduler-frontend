@@ -1,0 +1,23 @@
+.calendar{
+  /* background-image: url('./assets/calendar-back.png'); */
+  background-blend-mode: multiply;
+  background-color: azure;
+  background-position: center;
+  background-size: cover;
+  width: 80vw;
+  height: 80vh;
+  overflow-y: scroll;
+  margin: auto;
+  margin-top: 10vh;
+}
+
+#root{
+  min-height: 100vh;
+}
+
+.homepage{
+  background-image: url('./assets/main-background.jpeg');
+  background-position: center;
+  background-size: cover;
+  padding-bottom: 10vh;
+}

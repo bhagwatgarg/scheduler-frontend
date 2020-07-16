@@ -1,12 +1,25 @@
+import jQuery from 'jquery';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+//import 'popper.js/dist/popper';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/js/bo'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Footer from './UIElements/footer';
+//import '../public/jquery';
+
+// window.jQuery = jQuery;
+// //require('./popperutil');
+// require('bootstrap/dist/js/bootstrap.bundle');
+// require('bootstrap-material-design');
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <Footer />
   </React.StrictMode>,
   document.getElementById('root')
 );

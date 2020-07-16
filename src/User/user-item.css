@@ -1,0 +1,31 @@
+.search-item{
+  min-height: 30vw;
+  min-width: 30vw;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+}
+
+.blank{
+  height: 60%;
+  flex-grow: 2;
+  background-color: lightsalmon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.blank h1{
+  color: whitesmoke;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.content{
+  padding: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

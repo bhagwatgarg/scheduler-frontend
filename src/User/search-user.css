@@ -1,0 +1,42 @@
+.search-results{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem;
+  padding-top: 6rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+body{
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  width: 100%;
+  min-height: calc(100vh - 9rem);
+  flex-grow: 12;
+  background-image: url('../assets/main-bg.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.no-user-found{
+  display: flex;
+  min-width: 50vw;
+  min-height: 30vh;
+  justify-content: center;
+  align-items: center;
+  background-color: salmon;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.no-user-found h1{
+  font-weight: bold;
+  font-size: 5rem;
+  color: whitesmoke;
+  text-align: center;
+}

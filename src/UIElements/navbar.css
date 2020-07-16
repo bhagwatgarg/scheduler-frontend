@@ -1,0 +1,26 @@
+#bar{
+  margin-bottom: 5px;
+  height: 60px;
+  
+}
+.navbar{
+  background-color: midnightblue;
+}
+
+.ant-nav-bar{
+  position: fixed !important;
+  z-index: 10;
+  width: 100vw;
+  top: 0;
+  left: 0;
+}
+
+.ant-page-header-heading-extra{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.input-search{
+  min-width: 20vw !important;
+}
