@@ -110,7 +110,7 @@ const EventForm = (props) => {
 			props.addEvent(ev);
 		}
 		//props.addEvent(ev);
-		console.log(JSON.stringify(ev));
+		//console.log(JSON.stringify(ev));
 		props.onHide();
 	};
 	//console.log(new Date(props.event.start).getDay());

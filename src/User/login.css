@@ -61,14 +61,14 @@
   align-items: center;
   justify-items: start;
   background-color: lightgoldenrodyellow;
-  padding: 5px;
+  padding: 1rem;
   border-radius: 10px;
   margin: 10px;
   margin-bottom: 20px;
 }
 
 .feature-item h1{
-  font-size: 2rem;
+  font-size: 2rem !important;
   flex-grow: 1;
   padding-top: 20%;
   font-weight: normal;

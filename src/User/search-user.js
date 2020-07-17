@@ -18,11 +18,15 @@ const SearchUser=(props)=>{
   const myContext=useContext(AuthContext);
 
   useEffect(()=>{
+    document.title='Search Results';
+  }, []);
+
+  useEffect(()=>{
     //if(users) return;
     const getUsers=async()=>{
       try {
         const data = await getData(
-          `http://localhost:5000/users/get/${name}`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/get/${name}`,
           "GET",
           null,
           {

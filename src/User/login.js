@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
@@ -18,6 +18,10 @@ const SignUp = (props) => {
 	const [user, setUser] = useState(true);
 	const myContext = useContext(AuthContext);
 	let [visible, setVisible] = useState(false);
+
+	useEffect(()=>{
+		document.title='Scheduler';
+	}, []);
 
 	const schema = yup.object({
 		name: isSignUp
@@ -57,7 +61,7 @@ const SignUp = (props) => {
 			};
 			try {
 				const data = await getData(
-					"http://localhost:5000/users/signup",
+					`${process.env.REACT_APP_BACKEND_URL}/users/signup`,
 					"POST",
 					JSON.stringify(obj),
 					{ "Content-Type": "application/json" }
@@ -72,8 +76,9 @@ const SignUp = (props) => {
 			};
 			let data;
 			try {
+				//console.log(process.env);
 				data = await getData(
-					"http://localhost:5000/users/login",
+					`${process.env.REACT_APP_BACKEND_URL}/users/login`,
 					"POST",
 					JSON.stringify(obj),
 					{ "Content-Type": "application/json" }

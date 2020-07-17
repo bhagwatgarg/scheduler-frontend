@@ -24,6 +24,12 @@ const Profile = (props) => {
 	const [events, setEvents] = useState(undefined);
 	const [follows, setFollows] = useState(false);
 
+	useEffect(()=>{
+		if(channel){
+			document.title=channel.name;
+		}
+	},[channel]);
+
 	useEffect(() => {
 		//console.log(id);
 		//console.log("USE");
@@ -40,7 +46,7 @@ const Profile = (props) => {
 			try {
 				//console.log("USE exec");
 				const data = await getData(
-					`http://localhost:5000/users/${id2}`,
+					`${process.env.REACT_APP_BACKEND_URL}/users/${id2}`,
 					"GET",
 					null,
 					{
@@ -72,7 +78,7 @@ const Profile = (props) => {
 		try {
 			//console.log(11);
 			const data = await getData(
-				`http://localhost:5000/users/${myContext.authState.user}`,
+				`${process.env.REACT_APP_BACKEND_URL}/users/${myContext.authState.user}`,
 				"GET",
 				null,
 				{
@@ -95,7 +101,7 @@ const Profile = (props) => {
 		try {
 			//console.log(11);
 			const data = await getData(
-				`http://localhost:5000/users/events/${uid}`,
+				`${process.env.REACT_APP_BACKEND_URL}/users/events/${uid}`,
 				"GET",
 				null,
 				{
@@ -116,7 +122,7 @@ const Profile = (props) => {
 			//console.log(11);
 
 			const data = await getData(
-				`http://localhost:5000/events/new`,
+				`${process.env.REACT_APP_BACKEND_URL}/events/new`,
 				"POST",
 				JSON.stringify(ev),
 				{
@@ -134,7 +140,7 @@ const Profile = (props) => {
 			//console.log(11);
 
 			const data = await getData(
-				`http://localhost:5000/events/${e.id}`,
+				`${process.env.REACT_APP_BACKEND_URL}/events/${e.id}`,
 				"DELETE",
 				null,
 				{
@@ -155,7 +161,7 @@ const Profile = (props) => {
 			//console.log(11);
 
 			const data = await getData(
-				`http://localhost:5000/events/${e.id}`,
+				`${process.env.REACT_APP_BACKEND_URL}/events/${e.id}`,
 				"PATCH",
 				JSON.stringify(ev),
 				{
@@ -187,7 +193,7 @@ const Profile = (props) => {
 			//console.log("exec");
 			try {
 				const data = await getData(
-					`http://localhost:5000/users/${str}`,
+					`${process.env.REACT_APP_BACKEND_URL}/users/${str}`,
 					"POST",
 					JSON.stringify(obj),
 					{
