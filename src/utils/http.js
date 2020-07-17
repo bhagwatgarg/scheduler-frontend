@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import loading from "./loading";
-import ErrorModal from "./error-modal";
+import { useEffect, useState, useRef, useCallback } from "react";
+// import loading from "./loading";
+// import ErrorModal from "./error-modal";
 
 export const useHTTP = () => {
 	const [isLoading, setLoading] = useState(false);

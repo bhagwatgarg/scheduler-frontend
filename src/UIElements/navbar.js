@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Navbar, Nav, Form, FormControl, NavLink } from "react-bootstrap";
 import { AuthContext } from "../utils/auth-context";
 import { useHistory, Link } from "react-router-dom";
 import { PageHeader, Button, Input, Menu, Dropdown } from "antd";
-import {MoreOutlined} from '@ant-design/icons'
+import { MoreOutlined } from "@ant-design/icons";
 // import {Link} from 'react-router-dom';
 
 import "./navbar.css";
@@ -12,34 +11,38 @@ const NavBar = (props) => {
 	const history = useHistory();
 	const [name, setName] = useState(null);
 	const myContext = useContext(AuthContext);
-	const [visible, setVisible]=useState(false);
+	const [visible, setVisible] = useState(false);
 	const handleLogout = () => {
 		if (window.confirm("Are you sure?")) myContext.logout();
 	};
 
 	const onChangeHandler = (e) => {
 		const newVal = e.target.value;
-		if (name != newVal) setName(newVal);
+		if (name !== newVal) setName(newVal);
 	};
 
 	const handleSubmit = (e) => {
-		console.log(e);
+		//console.log(e);
 		if (name) {
 			history.push(`/search/${name}`);
 		}
-		console.log(e);
+		//console.log(e);
 	};
 
-	const homeClickHandler = (e) => {
-		e.preventDefault();
-		history.push("/");
-	};
+	// const homeClickHandler = (e) => {
+	// 	e.preventDefault();
+	// 	history.push("/");
+	// };
 
 	let [drawer, setDrawer] = useState(window.innerWidth < 600);
 
 	useEffect(() => {
 		window.onresize = () => {
-			setDrawer(window.innerWidth < 600);
+			setDrawer(
+				window.innerWidth < 600 &&
+					myContext.authState &&
+					myContext.authState.type === 0
+			);
 		};
 	}, []);
 
@@ -65,19 +68,27 @@ const NavBar = (props) => {
 			Logout
 		</Button>
 	);
-	const menu=<Menu onClick={()=>{}}>
-		<Menu.Item key='0'>
-			{search}
-		</Menu.Item>
-		<Menu.Item key='1'>
-			{logout}
-		</Menu.Item>
-	</Menu>
-	const drawerItem= <Dropdown onVisibleChange={(f)=>setVisible(f)} visible={visible} overlay={menu} trigger={['hover']}>
-	<a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-		 <MoreOutlined style={{fontSize:'2.5rem'}} onClick={()=>setVisible(true)} />
-	</a>
-</Dropdown>
+	const menu = (
+		<Menu onClick={() => {}}>
+			<Menu.Item key="0">{search}</Menu.Item>
+			<Menu.Item key="1">{logout}</Menu.Item>
+		</Menu>
+	);
+	const drawerItem = (
+		<Dropdown
+			onVisibleChange={(f) => setVisible(f)}
+			visible={visible}
+			overlay={menu}
+			trigger={["hover"]}
+		>
+			<a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+				<MoreOutlined
+					style={{ fontSize: "2.5rem" }}
+					onClick={() => setVisible(true)}
+				/>
+			</a>
+		</Dropdown>
+	);
 
 	// return (
 	// 		<div  id="bar">
@@ -122,9 +133,12 @@ const NavBar = (props) => {
 				// <Button key="1" type="primary">
 				// 	Primary
 				// </Button>,
-				myContext.authState &&(drawer) && drawerItem,
-				myContext.authState &&(!drawer) && search,
-				myContext.authState &&(!drawer) && logout,
+				myContext.authState && drawer && drawerItem,
+				myContext.authState &&
+					myContext.authState.type === 0 &&
+					!drawer &&
+					search,
+				myContext.authState && !drawer && logout,
 			]}
 		/>
 	);

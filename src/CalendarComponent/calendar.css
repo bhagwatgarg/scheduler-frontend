@@ -1,9 +1,19 @@
 .demo-app-calendar{
   min-width: 700px;
-  overflow-x: scroll;
+  padding: 1rem;
 }
 
 .calendar{
   max-width: 1000px;
   max-height: 700px;
+  margin: auto 3rem;
+  background-color: mintcream;
+  overflow-x: scroll;
+}
+
+.calendar-container{
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

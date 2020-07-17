@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Card, Button, CardDeck} from 'react-bootstrap';
 
 import { useHTTP } from "../utils/http";
 import Loading from "../utils/loading";
@@ -32,7 +31,7 @@ const SearchUser=(props)=>{
 					}
         );
         if(data.users.length>0){
-          console.log(data);
+          //console.log(data);
           setUsers(data.users);
         }else{
           throw Error();

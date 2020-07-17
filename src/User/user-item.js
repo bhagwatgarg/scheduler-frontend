@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, NavLink, Button } from "react-bootstrap";
+import {Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import './user-item.css';
 
@@ -18,20 +18,6 @@ const UserItem = (props) => {
 				<Button onClick={onClickHandler} variant="primary">Visit Channel</Button>
 			</div>
 		</div>
-	);
-	return (
-		<Card>
-			<Card.Body>
-				<Card.Title>{name}</Card.Title>
-				<Card.Subtitle>
-					{followers} Follower{followers === 1 ? "" : "s"}
-				</Card.Subtitle>
-				<Card.Text>
-					{description}
-				</Card.Text>
-			</Card.Body>
-      <Card.Subtitle><Button onClick={onClickHandler} variant="primary">Go somewhere</Button></Card.Subtitle>
-		</Card>
 	);
 };
 

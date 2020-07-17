@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {
@@ -7,10 +7,8 @@ import {
 	Row,
 	Col,
 	ButtonGroup,
-	ToggleButton,
 } from "react-bootstrap";
 import FormGroup from "../utils/form-group";
-import { v4 as uuid } from "uuid";
 import DaysOfWeek from "./day-of-week";
 
 const EventForm = (props) => {
@@ -221,12 +219,13 @@ const EventForm = (props) => {
 					{props.label}
 				</Form.Label>
 				{!props.read && (
-					<ButtonGroup>
+					<ButtonGroup toggle >
 						{["blue", "red", "green", "purple", "cyan"].map((color) => {
 							return (
 								<Button
 									className="mybtn"
-									style={{ background: `${color}` }}
+
+									style={{ background: `${color}`, color:'white', fontWeight:'bold' }}
 									onClick={() => (formik.values.color = color)}
 								>
 									{color}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { v4 as uuid } from "uuid";
 import "antd/dist/antd.css";
 import Calendar from "../CalendarComponent/calendar";
 import { useParams } from "react-router-dom";
@@ -13,65 +12,9 @@ import ErrorModal from "../utils/error-modal";
 
 // 0 for user 1 for publisher
 
-const context = { type: 1, id: "1" };
-const currentChannelId = "1";
-//set read
+// const context = { type: 1, id: "1" };
+// const currentChannelId = "1";
 
-//two types of renders: 1. get req for channel
-//											2. login for channel or user
-
-const channels = [
-	{
-		name: "MyChannel1",
-		id: "1",
-		events: [
-			{
-				title: "Channel Open",
-				start: new Date(),
-				color: "purple",
-				extendedProps: {
-					description: "First Ever Event",
-					id: uuid(),
-				},
-			},
-			{
-				title: "2Channel Open",
-				start: new Date(),
-				color: "red",
-				extendedProps: {
-					description: "Second Ever Event",
-					id: uuid(),
-				},
-			},
-		],
-		description: "Open for fun",
-	},
-	{
-		name: "MyChannel2",
-		id: "2",
-		events: [
-			{
-				title: "Channel Open",
-				start: new Date(),
-				color: "purple",
-				extendedProps: {
-					description: "First Ever Event",
-					id: uuid(),
-				},
-			},
-			{
-				title: "2Channel Open",
-				start: new Date(),
-				color: "red",
-				extendedProps: {
-					description: "2Second Ever Event",
-					id: uuid(),
-				},
-			},
-		],
-		description: "2Open for fun",
-	},
-];
 const Profile = (props) => {
 	const paramId = useParams().id;
 	const myContext = useContext(AuthContext);
@@ -80,15 +23,13 @@ const Profile = (props) => {
 	const [channel, setChannel] = useState(undefined);
 	const [events, setEvents] = useState(undefined);
 	const [follows, setFollows] = useState(false);
-	//console.log(channel);
 
 	useEffect(() => {
 		//console.log(id);
-		console.log("USE");
-		console.log(paramId);
+		//console.log("USE");
+		//console.log(paramId);
 		//if (channel) return;
 		let id2 = paramId;
-		let token;
 		if (!id2) {
 			id2 = myContext.authState.user;
 			//token=myContext.token.token;
@@ -97,7 +38,7 @@ const Profile = (props) => {
 		const initializer = async () => {
 			//console.log(JSON.stringify(token));
 			try {
-				console.log("USE exec");
+				//console.log("USE exec");
 				const data = await getData(
 					`http://localhost:5000/users/${id2}`,
 					"GET",
@@ -118,7 +59,7 @@ const Profile = (props) => {
 		initializer();
 
 		return () => {
-			console.log("fired callback");
+			//console.log("fired callback");
 			setChannel(undefined);
 			setEvents(undefined);
 			setId(undefined);
@@ -127,7 +68,7 @@ const Profile = (props) => {
 	}, [paramId]);
 
 	const checkFollows = async (id2) => {
-		if (id2 == myContext.authState.user) return false;
+		if (id2 === myContext.authState.user) return false;
 		try {
 			//console.log(11);
 			const data = await getData(
@@ -139,8 +80,8 @@ const Profile = (props) => {
 					Authorization: `Bearer ${myContext.authState.token}`,
 				}
 			);
-			console.log(data);
-			console.log(data.following.includes(id2));
+			//console.log(data);
+			//console.log(data.following.includes(id2));
 			if (data.following.includes(id2)) {
 				return true;
 			}
@@ -243,7 +184,7 @@ const Profile = (props) => {
 			str = "follow";
 		}
 		const fun = async () => {
-			console.log("exec");
+			//console.log("exec");
 			try {
 				const data = await getData(
 					`http://localhost:5000/users/${str}`,
@@ -255,13 +196,13 @@ const Profile = (props) => {
 					}
 				);
 			} catch (err) {
-				console.log(err);
+				//console.log(err);
 				return state;
 			}
 			return !state;
 		};
 		const ans = await fun();
-		console.log(ans);
+		//console.log(ans);
 		setFollows(ans);
 	};
 
@@ -275,7 +216,7 @@ const Profile = (props) => {
 			</div>
 		);
 	if (!channel) return <NavBar />;
-	console.log("render");
+	//console.log("render");
 	return (
 		<React.Fragment>
 			<div className="homepage">
@@ -308,6 +249,7 @@ const Profile = (props) => {
 						</Container>
 					</Jumbotron>
 				</div>
+				<div className='calendar-container'>
 				<div className="calendar">
 					<Calendar
 						events={events}
@@ -316,6 +258,7 @@ const Profile = (props) => {
 						updateEvent={updateEvent}
 						read={paramId ? paramId !== myContext.authState.user : false}
 					/>
+				</div>
 				</div>
 			</div>
 		</React.Fragment>

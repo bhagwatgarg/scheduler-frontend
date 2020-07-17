@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Nav,} from "react-bootstrap";
-import { Modal, Button } from "antd";
+import { Modal, } from "antd";
 import "./login-card.css";
 
 const LoginCard = (props) => {
@@ -11,7 +11,7 @@ const LoginCard = (props) => {
   const getText=()=>{
     let str=(props.isSignUp?"SignUp":"Login");
     str+=" for ";
-    str+=(props.user==1?"User":"Channel");
+    str+=(props.user?"User":"Channel");
     return str;
   };
 

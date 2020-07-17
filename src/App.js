@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -7,7 +6,6 @@ import {
 	Switch,
 } from "react-router-dom";
 import "./App.css";
-import Home from "./home";
 import SignUp from "./User/login";
 import Profile from "./User/profile";
 import { AuthContext } from "./utils/auth-context";
@@ -40,7 +38,7 @@ const App = () => {
     const data = localStorage.getItem("userData");
 		if (data) {
       const jData = JSON.parse(data);
-      console.log(jData.expiry>Date.now());
+      //console.log(jData.expiry>Date.now());
 			if (jData.expiry > Date.now())
         login(jData.user, jData.type, jData.token, jData.expiry);
       else{

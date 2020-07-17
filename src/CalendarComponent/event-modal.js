@@ -1,15 +1,12 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Modal, Button } from "react-bootstrap";
-import * as yup from "yup";
-import { Formik } from "formik";
 import EventForm from "./event-form";
-import {AuthContext} from '../utils/auth-context';
+import { AuthContext } from "../utils/auth-context";
 
 const EventModal = (props) => {
-	const myContext=useContext(AuthContext);
+	const myContext = useContext(AuthContext);
 	return (
 		<Modal
-			
 			show={props.show}
 			onHide={props.onHide}
 			size="lg"
@@ -29,7 +26,11 @@ const EventModal = (props) => {
 					event={props.event}
 					date={props.date}
 					onHide={props.onHide}
-					read={(props.event?(props.read||props.event.owner!=myContext.authState.user ):props.read)}
+					read={
+						props.event
+							? props.read || props.event.owner !== myContext.authState.user
+							: props.read
+					}
 				/>
 			</Modal.Body>
 			<Modal.Footer>

@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from 'react-dom';
+import React, { useState, useRef} from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -7,12 +6,9 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 import EventModal from "./event-modal";
 import listPlugin from '@fullcalendar/list';
 import $ from 'jquery';
-import {v4 as uuid} from 'uuid';
 //import bootstrapPlugin from '@fullcalendar/bootstrap'
 //import extPlugin from './fullcalendar'
 import bootstrapPlugin from '@fullcalendar/bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faTimes, faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 
 import './fullcalendar.min.css'
 import "./main.scss";
