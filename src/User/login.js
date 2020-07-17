@@ -12,23 +12,6 @@ import {useHTTP} from '../utils/http';
 import {Button} from 'antd';
 import './login.css';
 
-const users = [
-	{
-    id: "0",
-    type: 0,
-		name: "U0",
-		email: "user@user.user",
-		password: "qwer",
-  },
-  {
-    id: "01",
-    type: 0,
-    name: "U1",
-    email: "user1@user1.user1",
-    password: "qwer"
-  }
-];
-
 const SignUp = (props) => {
 
   const [getData, isLoading, isError, setError]=useHTTP();
@@ -76,7 +59,7 @@ const SignUp = (props) => {
         const data=await getData('http://localhost:5000/users/signup','POST',
         JSON.stringify(obj),{'Content-Type':'application/json'}
         )
-        myContext.login(data.id, data.type);
+        myContext.login(data.id, data.type, data.token);
       }catch(e){
 
       }
@@ -98,7 +81,7 @@ const SignUp = (props) => {
       }catch(e){
         return;
       }
-      myContext.login(data.id, data.type);
+      myContext.login(data.id, data.type, data.token);
       console.log(data.type);
 		}
 		

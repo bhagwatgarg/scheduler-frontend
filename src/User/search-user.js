@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Card, Button, CardDeck} from 'react-bootstrap';
 
 import { useHTTP } from "../utils/http";
@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import UserItem from './user-item';
 import NavBar from '../UIElements/navbar';
 import './search-user.css';
+import {AuthContext} from '../utils/auth-context';
 
 
 
@@ -15,6 +16,7 @@ const SearchUser=(props)=>{
   const name=useParams().name;
   const [users, setUsers]=useState(undefined);
   const [getData, isLoading, isError, setError] = useHTTP();
+  const myContext=useContext(AuthContext);
 
   useEffect(()=>{
     //if(users) return;
@@ -24,13 +26,20 @@ const SearchUser=(props)=>{
           `http://localhost:5000/users/get/${name}`,
           "GET",
           null,
-          { "Content-Type": "application/json" }
+          {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${myContext.authState.token}`,
+					}
         );
         if(data.users.length>0){
           console.log(data);
           setUsers(data.users);
+        }else{
+          throw Error();
         }
-      } catch (err) {}
+      } catch (err) {
+        setUsers(null);
+      }
     };
 
     getUsers();
@@ -48,7 +57,7 @@ const SearchUser=(props)=>{
 				/>
 			)}
       <div className='search-results'>
-        {(users&&(!isLoading))?users.map((u, k)=><UserItem key={`${k}`} user={u}  />):<div className='no-user-found'><h1>No Channel Found!</h1></div>}
+        {!isLoading&&((users)?users.map((u, k)=><UserItem key={`${k}`} user={u}  />):<div className='no-user-found'><h1>No Channel Found!</h1></div>)}
       </div>
       </React.Fragment>
   );

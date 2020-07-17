@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { v4 as uuid } from "uuid";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 import Calendar from "../CalendarComponent/calendar";
 import { useParams } from "react-router-dom";
 import NavBar from "../UIElements/navbar";
@@ -73,13 +73,13 @@ const channels = [
 	},
 ];
 const Profile = (props) => {
-	const paramId=useParams().id;
+	const paramId = useParams().id;
 	const myContext = useContext(AuthContext);
 	const [getData, isLoading, isError, setError] = useHTTP();
-	const [id, setId] = useState((paramId?paramId:myContext.authState.user));
+	const [id, setId] = useState(paramId ? paramId : myContext.authState.user);
 	const [channel, setChannel] = useState(undefined);
 	const [events, setEvents] = useState(undefined);
-	const [follows, setFollows]=useState(false);
+	const [follows, setFollows] = useState(false);
 	//console.log(channel);
 
 	useEffect(() => {
@@ -88,61 +88,67 @@ const Profile = (props) => {
 		console.log(paramId);
 		//if (channel) return;
 		let id2 = paramId;
+		let token;
 		if (!id2) {
 			id2 = myContext.authState.user;
+			//token=myContext.token.token;
 			//setId(id2);
 		}
 		const initializer = async () => {
+			//console.log(JSON.stringify(token));
 			try {
 				console.log("USE exec");
 				const data = await getData(
 					`http://localhost:5000/users/${id2}`,
 					"GET",
 					null,
-					{ "Content-Type": "application/json" }
+					{
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${myContext.authState.token}`,
+					}
 				);
 				//console.log(data);
 				setChannel(data);
-				const ans=await checkFollows(id2);
-				if(ans)setFollows(true);
+				const ans = await checkFollows(id2);
+				if (ans) setFollows(true);
 				else setFollows(false);
 				await getUpdatedEvents(id2);
-
 			} catch (err) {}
 		};
 		initializer();
 
-		return (()=>{
+		return () => {
 			console.log("fired callback");
 			setChannel(undefined);
 			setEvents(undefined);
 			setId(undefined);
 			setFollows(false);
-		})
+		};
 	}, [paramId]);
 
-
-	const checkFollows=async (id2)=>{
-		if(id2==myContext.authState.user) return false;
+	const checkFollows = async (id2) => {
+		if (id2 == myContext.authState.user) return false;
 		try {
 			//console.log(11);
 			const data = await getData(
 				`http://localhost:5000/users/${myContext.authState.user}`,
 				"GET",
 				null,
-				{ "Content-Type": "application/json" }
+				{
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${myContext.authState.token}`,
+				}
 			);
 			console.log(data);
 			console.log(data.following.includes(id2));
-			if(data.following.includes(id2)){
-				
+			if (data.following.includes(id2)) {
 				return true;
 			}
 			return false;
-		} catch (err) {return false;}
-	
-	}
-
+		} catch (err) {
+			return false;
+		}
+	};
 
 	const getUpdatedEvents = async (uid) => {
 		try {
@@ -151,7 +157,10 @@ const Profile = (props) => {
 				`http://localhost:5000/users/events/${uid}`,
 				"GET",
 				null,
-				{ "Content-Type": "application/json" }
+				{
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${myContext.authState.token}`,
+				}
 			);
 			//console.log(data);
 			//setChannel(data);
@@ -159,9 +168,7 @@ const Profile = (props) => {
 		} catch (err) {}
 	};
 
-
 	const addEvent = async (e) => {
-
 		let ev = e;
 		ev.owner = channel.id;
 		try {
@@ -171,13 +178,15 @@ const Profile = (props) => {
 				`http://localhost:5000/events/new`,
 				"POST",
 				JSON.stringify(ev),
-				{ "Content-Type": "application/json" }
+				{
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${myContext.authState.token}`,
+				}
 			);
 			//console.log(data);
 			await getUpdatedEvents(id);
 		} catch (err) {}
 	};
-
 
 	const deleteEvent = async (e) => {
 		try {
@@ -187,14 +196,16 @@ const Profile = (props) => {
 				`http://localhost:5000/events/${e.id}`,
 				"DELETE",
 				null,
-				{ "Content-Type": "application/json" }
+				{
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${myContext.authState.token}`,
+				}
 			);
 			await getUpdatedEvents(id);
 			//console.log(data);
 			//setEvents((curr)=>{return {...curr, ev}});
 		} catch (err) {}
 	};
-
 
 	const updateEvent = async (e) => {
 		let ev = e;
@@ -206,7 +217,10 @@ const Profile = (props) => {
 				`http://localhost:5000/events/${e.id}`,
 				"PATCH",
 				JSON.stringify(ev),
-				{ "Content-Type": "application/json" }
+				{
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${myContext.authState.token}`,
+				}
 			);
 			await getUpdatedEvents(id);
 			//console.log(data);
@@ -216,85 +230,93 @@ const Profile = (props) => {
 		//console.log(newEvents);
 	};
 
-
-	const followHandler=async ()=>{
-		let state=follows;
-		const obj={
+	const followHandler = async () => {
+		let state = follows;
+		const obj = {
 			user: myContext.authState.user,
-			channel: id
+			channel: id,
 		};
 		let str;
-		if(state){
-			str='unfollow';
+		if (state) {
+			str = "unfollow";
+		} else {
+			str = "follow";
 		}
-		else{
-			str='follow';
-		}
-		const  fun=async()=>{
-			console.log('exec');
+		const fun = async () => {
+			console.log("exec");
 			try {
 				const data = await getData(
 					`http://localhost:5000/users/${str}`,
 					"POST",
 					JSON.stringify(obj),
-					{ "Content-Type": "application/json" }
+					{
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${myContext.authState.token}`,
+					}
 				);
-				
-			} catch (err) {console.log(err);return (state)}
-			return (!state);
-		}
-		const ans=await fun();
+			} catch (err) {
+				console.log(err);
+				return state;
+			}
+			return !state;
+		};
+		const ans = await fun();
 		console.log(ans);
 		setFollows(ans);
 	};
 
-
-	if (!channel &&(!isLoading)) return <div><NavBar /><div className='no-user-found'><h1>No Channel Found!</h1></div></div>;
-	if(!channel)return <NavBar />
-	console.log('render');
+	if (!channel && !isLoading)
+		return (
+			<div>
+				<NavBar />
+				<div className="no-user-found">
+					<h1>No Channel Found!</h1>
+				</div>
+			</div>
+		);
+	if (!channel) return <NavBar />;
+	console.log("render");
 	return (
 		<React.Fragment>
 			<div className="homepage">
-			<NavBar />
-			{isLoading && <Loading />}
-			{isError && (
-				<ErrorModal
-					message={isError.message}
-					show={isError.status}
-					onHide={() => setError({ message: "", status: false })}
-				/>
-			)}
-			<div className='profile-jumbo'>
-			<Jumbotron fluid>
-				<Container>
-					<h1>
-						Welcome{" "}
-						{myContext.authState.type || channel.id !== myContext.authState.user
-							? "to"
-							: ""}{" "}
-						{channel.name}!
-					</h1>
-					<p>{channel.description}</p>
-					{channel.id !== myContext.authState.user && (
-						<Button
-							className="mybtn alRight"
-							onClick={followHandler}
-						>
-							{follows?"Unfollow Channel":"Follow Channel"}
-						</Button>
-					)}
-				</Container>
-			</Jumbotron>
-			</div>
-			<div className="calendar">
-				<Calendar
-					events={events}
-					addEvent={addEvent}
-					deleteEvent={deleteEvent}
-					updateEvent={updateEvent}
-					read={(paramId? paramId!== myContext.authState.user: false)}
-				/>
-			</div>
+				<NavBar />
+				{isLoading && <Loading />}
+				{isError && (
+					<ErrorModal
+						message={isError.message}
+						show={isError.status}
+						onHide={() => setError({ message: "", status: false })}
+					/>
+				)}
+				<div className="profile-jumbo">
+					<Jumbotron fluid>
+						<Container>
+							<h1>
+								Welcome{" "}
+								{myContext.authState.type ||
+								channel.id !== myContext.authState.user
+									? "to"
+									: ""}{" "}
+								{channel.name}!
+							</h1>
+							<p>{channel.description}</p>
+							{channel.id !== myContext.authState.user && (
+								<Button className="mybtn alRight" onClick={followHandler}>
+									{follows ? "Unfollow Channel" : "Follow Channel"}
+								</Button>
+							)}
+						</Container>
+					</Jumbotron>
+				</div>
+				<div className="calendar">
+					<Calendar
+						events={events}
+						addEvent={addEvent}
+						deleteEvent={deleteEvent}
+						updateEvent={updateEvent}
+						read={paramId ? paramId !== myContext.authState.user : false}
+					/>
+				</div>
 			</div>
 		</React.Fragment>
 	);
