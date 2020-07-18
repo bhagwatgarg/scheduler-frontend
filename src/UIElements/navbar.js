@@ -80,6 +80,7 @@ const NavBar = (props) => {
 			visible={visible}
 			overlay={menu}
 			trigger={["hover"]}
+			key='dropdown'
 		>
 			<a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
 				<MoreOutlined

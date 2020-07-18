@@ -225,6 +225,7 @@ const EventForm = (props) => {
 						{["blue", "red", "green", "purple", "cyan"].map((color) => {
 							return (
 								<Button
+									key={color}
 									className="mybtn"
 									active={currColor === color}
 									style={formik.values.color === color?{ border:`${color} 1px solid`, background: `${color}`, color:'white', fontWeight:'bold' }:{ border:`${color} 1px solid`, color: `${color}`, background:'white', fontWeight:'bold' }}

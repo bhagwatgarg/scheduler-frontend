@@ -5,7 +5,7 @@ import "./form-group.css";
 const FormG = (props) => {
 	return (
 		<React.Fragment>
-			<Form.Group as={Row} controlId={`${props.prop}`} class="fgRow">
+			<Form.Group as={Row} controlId={`${props.prop}`} className="fgRow">
 				<Form.Label column sm="3" className="label">
 					{props.label}
 				</Form.Label>
