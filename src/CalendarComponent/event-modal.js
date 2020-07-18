@@ -5,6 +5,9 @@ import { AuthContext } from "../utils/auth-context";
 
 const EventModal = (props) => {
 	const myContext = useContext(AuthContext);
+	const isRead=props.event
+	? props.read || props.event.owner !== myContext.authState.user
+	: props.read;
 	return (
 		<Modal
 			show={props.show}
@@ -15,7 +18,7 @@ const EventModal = (props) => {
 		>
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
-					{props.event ? "EDIT EVENT" : "ADD EVENT"}
+					{isRead?"VIEW EVENT":props.event ? "EDIT EVENT" : "ADD EVENT"}
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
@@ -26,11 +29,7 @@ const EventModal = (props) => {
 					event={props.event}
 					date={props.date}
 					onHide={props.onHide}
-					read={
-						props.event
-							? props.read || props.event.owner !== myContext.authState.user
-							: props.read
-					}
+					read={isRead}
 				/>
 			</Modal.Body>
 			<Modal.Footer>

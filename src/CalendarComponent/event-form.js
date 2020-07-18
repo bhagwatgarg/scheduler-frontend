@@ -327,6 +327,7 @@ const EventForm = (props) => {
 
 				{!props.read && (
 					<AntButton
+						style={{marginBottom:'1rem'}}
 						size="large"
 						block
 						className="mybtn"
