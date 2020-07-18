@@ -1,0 +1,25 @@
+.color-buttons{
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.color-buttons button{
+  margin: 0.5rem;
+  /* border: black 1px solid !important; */
+}
+
+.repeating-switch{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.repeating-switch label{
+  margin: 0 0.5rem;
+}

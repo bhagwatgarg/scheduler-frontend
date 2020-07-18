@@ -193,6 +193,7 @@ const SignUp = (props) => {
 						/>
 					)}
 					<Button
+						block
 						variant="outline-primary"
 						size="large"
 						disabled={Object.keys(formik.errors).length !== 0}
@@ -204,6 +205,7 @@ const SignUp = (props) => {
 					</Button>
 				</Form>
 				<Button
+					block
 					type="button"
 					variant="outline-primary"
 					size="large"

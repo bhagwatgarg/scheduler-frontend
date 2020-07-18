@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 //import './form-group.css';
+import './days-of-week.css';
 
 const DaysOfWeek = (props) => {
   let day;
@@ -22,10 +23,10 @@ const DaysOfWeek = (props) => {
 	return (
 		<React.Fragment>
 			<Row>
-      <Form.Label column sm="3" className="label"></Form.Label>
+      <div className='days-of-week'>
         {['S','M','T','W','Th','F','Sa'].map((val, ind)=>{
           return (<Form.Group controlId= {val}>
-				<Col sm="1">
+				
 					<Form.Check
 						label={val}
 						onChange={props.formik.handleChange}
@@ -34,10 +35,11 @@ const DaysOfWeek = (props) => {
             onClick={()=>onClickHandler(val, ind)}
             disabled={props.read||(day===ind)}
 					/>
-				</Col>
+				
 			</Form.Group>
           );
         })}
+        </div>
 			</Row>
 		</React.Fragment>
 	);

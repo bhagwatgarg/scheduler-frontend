@@ -6,13 +6,15 @@ import {
 	Button,
 	Row,
 	Col,
-	ButtonGroup,
 } from "react-bootstrap";
+import {Button as AntButton} from 'antd';
 import FormGroup from "../utils/form-group";
 import DaysOfWeek from "./day-of-week";
+import './event-form.css';
 
 const EventForm = (props) => {
 	//if(props.event)console.log((props.event.recurrent));
+	let [currColor, setCurrColor]=useState(props.event ? props.event.color : "blue");
 	const [recur, setRecur] = useState(
 		props.event ? props.event.recurrent : false
 	);
@@ -219,20 +221,23 @@ const EventForm = (props) => {
 					{props.label}
 				</Form.Label>
 				{!props.read && (
-					<ButtonGroup toggle >
+					<div className='color-buttons'>
 						{["blue", "red", "green", "purple", "cyan"].map((color) => {
 							return (
 								<Button
 									className="mybtn"
-
-									style={{ background: `${color}`, color:'white', fontWeight:'bold' }}
-									onClick={() => (formik.values.color = color)}
+									active={currColor === color}
+									style={formik.values.color === color?{ border:`${color} 1px solid`, background: `${color}`, color:'white', fontWeight:'bold' }:{ border:`${color} 1px solid`, color: `${color}`, background:'white', fontWeight:'bold' }}
+									onClick={() =>{
+										(formik.values.color = color);
+										setCurrColor(color);
+									} }
 								>
 									{color}
 								</Button>
 							);
 						})}
-					</ButtonGroup>
+					</div>
 				)}
 			</Row>
 			<Form onSubmit={formik.handleSubmit}>
@@ -278,11 +283,11 @@ const EventForm = (props) => {
 					type="time"
 					read={props.read}
 				/>
-				<Form.Group as={Row} controlId="recurrent" class="fgRow">
-					<Form.Label column sm="3" className="label">
+				<Form.Group as={Row} controlId="recurrent" className="fgRow repeating-switch">
+					<Form.Label  className="label">
 						Repeating Event
 					</Form.Label>
-					<Col sm="9">
+					{/* <Col sm="9"> */}
 						<Form.Check
 							type="switch"
 							id="custom-switch"
@@ -293,7 +298,7 @@ const EventForm = (props) => {
 							onChange={formik.handleChange}
 							disabled={props.read}
 						/>
-					</Col>
+					{/* </Col> */}
 				</Form.Group>
 				{recur && (
 					<React.Fragment>
@@ -321,24 +326,28 @@ const EventForm = (props) => {
 				)}
 
 				{!props.read && (
-					<Button
-						size="lg"
+					<AntButton
+						size="large"
+						block
 						className="mybtn"
+						htmlType='submit'
 						disabled={Object.keys(formik.errors).length !== 0}
-						type="submit"
+						type="primary"
 					>
 						Submit
-					</Button>
+					</AntButton>
 				)}
 				{!props.read && props.event && (
-					<Button
+					<AntButton
 						className="mybtn"
-						size="lg"
+						danger
+						block
+						size="large"
 						type="button"
 						onClick={onDeleteHandler}
 					>
 						Delete
-					</Button>
+					</AntButton>
 				)}
 			</Form>
 		</React.Fragment>
