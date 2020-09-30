@@ -37,11 +37,8 @@
     "yup": "^0.29.1"
   },
   "scripts": {
-
     "build": "react-scripts build",
-
     "eject": "react-scripts eject",
-    
     "dev": "react-scripts start",
     "start": "serve -s build",
     "test": "react-scripts test --env=jsdom",
